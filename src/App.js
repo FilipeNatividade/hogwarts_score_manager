@@ -1,12 +1,16 @@
 import "./App.css";
 import CardsNote from "./Components/CardsNote";
-import Dashboard from "./Components/dashboard";
+import DashboardScore from "./Components/DashboardScore";
+import Students from "./Components/Students";
 
 function App() {
   return (
     <div className="App">
+      {/* {isVisible && ( */}
+      <DashboardScore />
+      {/* )} */}
       <CardsNote />
-      <Dashboard />
+      <Students />
     </div>
   );
 }

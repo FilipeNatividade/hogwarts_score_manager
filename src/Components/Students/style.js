@@ -21,12 +21,11 @@ export const DivName = styled.div`
   margin-left: 1rem;
   text-align: left;
 
-  /* &:last-child {
+  &:last-child {
     border: none;
-  } */
+  }
 `;
 
 export const H3Name = styled.h3`
-  margin-left: 30rem;
-  margin-right: 18rem;
+  width: 50%;
 `;
