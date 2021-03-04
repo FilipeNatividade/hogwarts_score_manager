@@ -6,20 +6,27 @@ import {
   DivButton,
   ButtonGain,
   ButtonLose,
+  ButtonDone,
 } from "./style";
 import { useSelector } from "react-redux";
 import { studentsThunks } from "../../Store/module/StudentsList/thunks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const DashboardScore = () => {
   const students = useSelector((state) => state.students);
+
+  const [inputVsPoint, setInputVsPoint] = useState(true);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(studentsThunks());
   }, []);
+
+  const toExchange = () => {
+    setInputVsPoint(!inputVsPoint);
+  };
 
   console.log(students[0]);
 
@@ -33,11 +40,21 @@ const DashboardScore = () => {
             <h3>{students[0].house}</h3>
           </DivHouse>
           <h1>{students[0].name}</h1>
-          <InputNamber />
-          <DivButton>
-            <ButtonGain>Gain</ButtonGain>
-            <ButtonLose>Lose</ButtonLose>
-          </DivButton>
+
+          {inputVsPoint ? (
+            <>
+              <InputNamber />
+              <DivButton>
+                <ButtonGain onClick={toExchange}>Gain</ButtonGain>
+                <ButtonLose onClick={toExchange}>Lose</ButtonLose>
+              </DivButton>
+            </>
+          ) : (
+            <>
+              <h2>ponto</h2>
+              <ButtonDone onClick={toExchange}>Done</ButtonDone>
+            </>
+          )}
         </div>
       </ContainerSecund>
     </Container>

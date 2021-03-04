@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
+  color: #3461a4;
   display: flex;
-  height: 230%;
+  font-family: "Roboto", sans-serif;
+  height: 200%;
   position: absolute;
   width: 100%;
   /* visibility: hidden; */
@@ -15,7 +17,7 @@ export const ContainerSecund = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   width: 40%;
 `;
 export const DivHouse = styled.div`
@@ -53,4 +55,8 @@ export const ButtonGain = styled.button`
 `;
 export const ButtonLose = styled(ButtonGain)`
   background-color: #f4a288;
+`;
+
+export const ButtonDone = styled(ButtonGain)`
+  background-color: #3461a4;
 `;
