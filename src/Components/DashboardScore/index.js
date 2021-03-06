@@ -7,14 +7,21 @@ import {
   ButtonGain,
   ButtonLose,
   ButtonDone,
+  ImgPerfil,
+  DivLeft,
 } from "./style";
 import { useSelector } from "react-redux";
 import { studentsThunks } from "../../Store/module/StudentsList/thunks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { visibleAction } from "../../Store/module/isVisible/action";
+import { display } from "../../Store/module/display/action";
 
-const DashboardScore = () => {
-  const students = useSelector((state) => state.students);
+const DashboardScore = ({ visible }) => {
+  const state = useSelector((state) => state.house);
+  const displayIndex = useSelector((state) => state.display);
+
+  const [valorInput, setValorInput] = useState();
 
   const [inputVsPoint, setInputVsPoint] = useState(true);
 
@@ -24,38 +31,79 @@ const DashboardScore = () => {
     dispatch(studentsThunks());
   }, []);
 
-  const toExchange = () => {
+  const showValue = () => {
     setInputVsPoint(!inputVsPoint);
+    dispatch(display(valorInput));
+    // console.log(valorInput);
   };
 
-  console.log(students[0]);
+  const exitModel = () => {
+    setInputVsPoint(!inputVsPoint);
+    dispatch(visibleAction(true));
+  };
+
+  const emblem = (nameHouse) => {
+    let src = "";
+    switch (nameHouse) {
+      case "Gryffindor":
+        src = "./Images/Gryffindor.png";
+        break;
+      case "Hufflepuff":
+        src = "./Images/Hufflepuff.png";
+        break;
+      case "Ravenclow":
+        src = "./Images/Ravenclow.png";
+        break;
+      case "Slytherin":
+        src = "./Images/Slytherin.png";
+        break;
+      default:
+        break;
+    }
+    return src;
+  };
+
+  const setValor = (e) => setValorInput(e.target.value);
 
   return (
-    <Container>
+    <Container visible={visible}>
       <ContainerSecund>
-        <img src={students[0].image} />
-        <div>
+        <ImgPerfil src={state.image} />
+        <DivLeft>
           <DivHouse>
-            <img src="./Images/Hufflepuff.png" style={{ width: "50px" }} />
-            <h3>{students[0].house}</h3>
+            <img src={emblem(state.house)} style={{ width: "4rem" }} />
+            <h3>{state.house}</h3>
           </DivHouse>
-          <h1>{students[0].name}</h1>
+          <h1>{state.name}</h1>
 
           {inputVsPoint ? (
-            <>
-              <InputNamber />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                showValue();
+                setValorInput();
+              }}
+            >
+              <InputNamber
+                onChange={(e) => setValor(e)}
+                value={valorInput}
+                type="number"
+                name="ponto"
+                max="100"
+                placeholder="pontos"
+              />
               <DivButton>
-                <ButtonGain onClick={toExchange}>Gain</ButtonGain>
-                <ButtonLose onClick={toExchange}>Lose</ButtonLose>
+                <ButtonGain type="submit">Gain</ButtonGain>
+                <ButtonLose type="submit">Lose</ButtonLose>
               </DivButton>
-            </>
+            </form>
           ) : (
             <>
-              <h2>ponto</h2>
-              <ButtonDone onClick={toExchange}>Done</ButtonDone>
+              <h2>{displayIndex[displayIndex.length - 1]}</h2>
+              <ButtonDone onClick={exitModel}>Done</ButtonDone>
             </>
           )}
-        </div>
+        </DivLeft>
       </ContainerSecund>
     </Container>
   );

@@ -3,12 +3,16 @@ import CardsNote from "./Components/CardsNote";
 import DashboardScore from "./Components/DashboardScore";
 import Students from "./Components/Students";
 
+import { useSelector } from "react-redux";
+
 function App() {
+  const visible = useSelector((state) => state.isVisible);
+
+  console.log(visible);
+
   return (
     <div className="App">
-      {/* {isVisible && ( */}
-      <DashboardScore />
-      {/* )} */}
+      <DashboardScore visible={visible} />
       <CardsNote />
       <Students />
     </div>

@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 200%;
   position: absolute;
   width: 100%;
-  /* visibility: hidden; */
+  visibility: ${(props) => (props.visible ? "hidden" : "visible")};
 `;
 export const ContainerSecund = styled.div`
   background-color: #e5edf2;
@@ -18,8 +18,17 @@ export const ContainerSecund = styled.div`
   justify-content: space-around;
   margin: 0 auto;
   padding: 1rem 0.5rem;
-  width: 40%;
 `;
+
+export const ImgPerfil = styled.img`
+  margin: 0 0.5rem;
+  width: 10rem;
+`;
+
+export const DivLeft = styled.div`
+  margin: 0 1rem;
+`;
+
 export const DivHouse = styled.div`
   display: flex;
   justify-content: space-around;
@@ -36,7 +45,6 @@ export const DivButton = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-
   width: 80%;
 `;
 
