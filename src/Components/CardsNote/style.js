@@ -26,6 +26,7 @@ export const ImgHeader = styled.img`
 `;
 
 export const Cards = styled.div`
+  border: 2px solid red;
   background-color: #e5edf2;
   margin-top: -3.5rem;
   width: 20%;

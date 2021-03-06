@@ -15,7 +15,10 @@ import { studentsThunks } from "../../Store/module/StudentsList/thunks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { visibleAction } from "../../Store/module/isVisible/action";
-import { display } from "../../Store/module/display/action";
+import { displayGryffindor } from "../../Store/module/displayGryffindor/action";
+import { displayHufflepuff } from "../../Store/module/displayHufflepuff/action";
+import { displayRavenclow } from "../../Store/module/displayRavenclow/action";
+import { displaySlytherin } from "../../Store/module/displaySlytherin/action";
 
 const DashboardScore = ({ visible }) => {
   const state = useSelector((state) => state.house);
@@ -31,10 +34,24 @@ const DashboardScore = ({ visible }) => {
     dispatch(studentsThunks());
   }, []);
 
-  const showValue = () => {
+  const showValue = (nameHouse) => {
     setInputVsPoint(!inputVsPoint);
-    dispatch(display(valorInput));
-    // console.log(valorInput);
+
+    switch (nameHouse) {
+      case "Gryffindor":
+        return dispatch(displayGryffindor(valorInput));
+
+      case "Hufflepuff":
+        return dispatch(displayHufflepuff(valorInput));
+
+      case "Ravenclow":
+        return dispatch(displayRavenclow(valorInput));
+
+      case "Slytherin":
+        return dispatch(displaySlytherin(valorInput));
+      default:
+        break;
+    }
   };
 
   const exitModel = () => {
@@ -72,7 +89,7 @@ const DashboardScore = ({ visible }) => {
         <DivLeft>
           <DivHouse>
             <img src={emblem(state.house)} style={{ width: "4rem" }} />
-            <h3>{state.house}</h3>
+            <h2>{state.house}</h2>
           </DivHouse>
           <h1>{state.name}</h1>
 
@@ -80,7 +97,7 @@ const DashboardScore = ({ visible }) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                showValue();
+                showValue(state.house);
                 setValorInput();
               }}
             >
@@ -99,7 +116,7 @@ const DashboardScore = ({ visible }) => {
             </form>
           ) : (
             <>
-              <h2>{displayIndex[displayIndex.length - 1]}</h2>
+              <h2>500</h2>
               <ButtonDone onClick={exitModel}>Done</ButtonDone>
             </>
           )}

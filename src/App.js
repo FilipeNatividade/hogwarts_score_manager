@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 function App() {
   const visible = useSelector((state) => state.isVisible);
 
-  console.log(visible);
-
   return (
     <div className="App">
       <DashboardScore visible={visible} />
