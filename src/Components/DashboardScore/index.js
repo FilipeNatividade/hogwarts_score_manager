@@ -19,14 +19,19 @@ import { displayGryffindor } from "../../Store/module/displayGryffindor/action";
 import { displayHufflepuff } from "../../Store/module/displayHufflepuff/action";
 import { displayRavenclow } from "../../Store/module/displayRavenclow/action";
 import { displaySlytherin } from "../../Store/module/displaySlytherin/action";
+import {
+  addNumberTrue,
+  subNumberFalse,
+} from "../../Store/module/addOrSub/action";
 
 const DashboardScore = ({ visible }) => {
   const state = useSelector((state) => state.house);
-  const displayIndex = useSelector((state) => state.display);
 
-  const [valorInput, setValorInput] = useState();
+  const [valorInput, setValorInput] = useState(0);
 
   const [inputVsPoint, setInputVsPoint] = useState(true);
+
+  const addOrSub = useSelector((state) => state.addOrSub);
 
   const dispatch = useDispatch();
 
@@ -34,24 +39,39 @@ const DashboardScore = ({ visible }) => {
     dispatch(studentsThunks());
   }, []);
 
+  const setValor = (e) => {
+    setValorInput(e.target.value);
+  };
+
   const showValue = (nameHouse) => {
+    // setAddOrSub(true);
     setInputVsPoint(!inputVsPoint);
 
     switch (nameHouse) {
       case "Gryffindor":
-        return dispatch(displayGryffindor(valorInput));
+        return dispatch(displayGryffindor(parseInt(valorInput)));
 
       case "Hufflepuff":
-        return dispatch(displayHufflepuff(valorInput));
+        return dispatch(displayHufflepuff(parseInt(valorInput)));
 
       case "Ravenclow":
-        return dispatch(displayRavenclow(valorInput));
+        return dispatch(displayRavenclow(parseInt(valorInput)));
 
       case "Slytherin":
-        return dispatch(displaySlytherin(valorInput));
+        return dispatch(displaySlytherin(parseInt(valorInput)));
       default:
         break;
     }
+  };
+
+  const addPonto = (nameHouse) => {
+    showValue(nameHouse);
+    dispatch(addNumberTrue());
+  };
+
+  const subPonto = (nameHouse) => {
+    showValue(nameHouse);
+    dispatch(subNumberFalse());
   };
 
   const exitModel = () => {
@@ -80,43 +100,49 @@ const DashboardScore = ({ visible }) => {
     return src;
   };
 
-  const setValor = (e) => setValorInput(e.target.value);
-
   return (
     <Container visible={visible}>
       <ContainerSecund>
         <ImgPerfil src={state.image} />
         <DivLeft>
           <DivHouse>
-            <img src={emblem(state.house)} style={{ width: "4rem" }} />
+            <img
+              src={emblem(state.house)}
+              style={{ width: "4rem", border: "2px solid red" }}
+            />
             <h2>{state.house}</h2>
           </DivHouse>
           <h1>{state.name}</h1>
 
           {inputVsPoint ? (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                showValue(state.house);
-                setValorInput();
-              }}
-            >
+            <>
               <InputNamber
-                onChange={(e) => setValor(e)}
-                value={valorInput}
+                onChange={setValor}
                 type="number"
                 name="ponto"
                 max="100"
                 placeholder="pontos"
               />
               <DivButton>
-                <ButtonGain type="submit">Gain</ButtonGain>
-                <ButtonLose type="submit">Lose</ButtonLose>
+                <ButtonGain onClick={() => addPonto(state.house)}>
+                  Gain
+                </ButtonGain>
+                <ButtonLose onClick={() => subPonto(state.house)}>
+                  Lose
+                </ButtonLose>
               </DivButton>
-            </form>
+            </>
           ) : (
             <>
-              <h2>500</h2>
+              {addOrSub ? (
+                <>
+                  <h1 style={{ color: "#77edf0" }}>{`+ ${valorInput}`}</h1>
+                </>
+              ) : (
+                <>
+                  <h1 style={{ color: "#f4a288" }}>{`- ${valorInput}`}</h1>
+                </>
+              )}
               <ButtonDone onClick={exitModel}>Done</ButtonDone>
             </>
           )}
