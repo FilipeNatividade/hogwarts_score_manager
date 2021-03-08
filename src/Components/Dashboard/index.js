@@ -2,13 +2,11 @@ import { DivName, H3Name, ButtonIcon, ImgButton } from "./style";
 import { useDispatch } from "react-redux";
 import { visibleAction } from "../../Store/module/isVisible/action";
 import { getInfo } from "../../Store/module/addStudentModel/action";
-import DashboardScore from "../DashboardScore";
 
 const Dashboard = ({ student }) => {
   const dispatch = useDispatch();
 
   const selectStudents = () => {
-    // console.log(student);
     dispatch(getInfo(student));
     dispatch(visibleAction());
   };

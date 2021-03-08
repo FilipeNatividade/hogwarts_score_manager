@@ -1,4 +1,4 @@
-const displaySlytherinReducer = (state = [], action) => {
+const displaySlytherinReducer = (state = [0], action) => {
   switch (action.type) {
     case "DISPLAY_SLYTHERIN":
       return (state = [...state, action.valueSlytherin]);

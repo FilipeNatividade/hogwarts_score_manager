@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { visibleAction } from "../../Store/module/isVisible/action";
 import { displayGryffindor } from "../../Store/module/displayGryffindor/action";
 import { displayHufflepuff } from "../../Store/module/displayHufflepuff/action";
-import { displayRavenclow } from "../../Store/module/displayRavenclow/action";
+import { displayRavenclaw } from "../../Store/module/displayRavenclaw/action";
 import { displaySlytherin } from "../../Store/module/displaySlytherin/action";
 import {
   addNumberTrue,
@@ -44,9 +44,7 @@ const DashboardScore = ({ visible }) => {
   };
 
   const showValue = (nameHouse) => {
-    // setAddOrSub(true);
     setInputVsPoint(!inputVsPoint);
-
     switch (nameHouse) {
       case "Gryffindor":
         return dispatch(displayGryffindor(parseInt(valorInput)));
@@ -54,8 +52,8 @@ const DashboardScore = ({ visible }) => {
       case "Hufflepuff":
         return dispatch(displayHufflepuff(parseInt(valorInput)));
 
-      case "Ravenclow":
-        return dispatch(displayRavenclow(parseInt(valorInput)));
+      case "Ravenclaw":
+        return dispatch(displayRavenclaw(parseInt(valorInput)));
 
       case "Slytherin":
         return dispatch(displaySlytherin(parseInt(valorInput)));
@@ -88,8 +86,8 @@ const DashboardScore = ({ visible }) => {
       case "Hufflepuff":
         src = "./Images/Hufflepuff.png";
         break;
-      case "Ravenclow":
-        src = "./Images/Ravenclow.png";
+      case "Ravenclaw":
+        src = "./Images/Ravenclaw.png";
         break;
       case "Slytherin":
         src = "./Images/Slytherin.png";
@@ -106,10 +104,7 @@ const DashboardScore = ({ visible }) => {
         <ImgPerfil src={state.image} />
         <DivLeft>
           <DivHouse>
-            <img
-              src={emblem(state.house)}
-              style={{ width: "4rem", border: "2px solid red" }}
-            />
+            <img src={emblem(state.house)} style={{ width: "4rem" }} />
             <h2>{state.house}</h2>
           </DivHouse>
           <h1>{state.name}</h1>

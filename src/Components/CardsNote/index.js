@@ -8,19 +8,18 @@ import {
   DivDisplay,
 } from "./style";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 const CardsNote = () => {
   const displayGryffindor = useSelector((state) => state.displayGryffindor);
   const displayHufflepuff = useSelector((state) => state.displayHufflepuff);
-  const displayRavenclow = useSelector((state) => state.displayRavenclow);
+  const displayRavenclaw = useSelector((state) => state.displayRavenclaw);
   const displaySlytherin = useSelector((state) => state.displayvalueSlytherin);
 
   const addOrSub = useSelector((state) => state.addOrSub);
 
-  console.log(displayGryffindor);
+  // console.log(displayGryffindor);
   // console.log(displayHufflepuff);
-  // console.log(displayRavenclow);
+  // console.log(displayRavenclaw);
   // console.log(displaySlytherin);
 
   return (
@@ -66,12 +65,12 @@ const CardsNote = () => {
           </DivDisplay>
         </Cards>
         <Cards>
-          <h2>#4 Ravenclow</h2>
-          <CardsImg src="./Images/Ravenclow.png" />
+          <h2>#4 Ravenclaw</h2>
+          <CardsImg src="./Images/Ravenclaw.png" />
           <DivDisplay>
-            {displayRavenclow <= 0
-              ? displayRavenclow
-              : displayRavenclow.reduce((acc, crr) => {
+            {displayRavenclaw <= 0
+              ? displayRavenclaw
+              : displayRavenclaw.reduce((acc, crr) => {
                   return addOrSub ? acc + crr : acc + -crr;
                 })}
           </DivDisplay>
