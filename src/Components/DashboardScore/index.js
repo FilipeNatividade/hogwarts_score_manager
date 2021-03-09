@@ -19,10 +19,6 @@ import { displayGryffindor } from "../../Store/module/displayGryffindor/action";
 import { displayHufflepuff } from "../../Store/module/displayHufflepuff/action";
 import { displayRavenclaw } from "../../Store/module/displayRavenclaw/action";
 import { displaySlytherin } from "../../Store/module/displaySlytherin/action";
-import {
-  addNumberTrue,
-  subNumberFalse,
-} from "../../Store/module/addOrSub/action";
 
 const DashboardScore = ({ visible }) => {
   const state = useSelector((state) => state.house);
@@ -31,8 +27,7 @@ const DashboardScore = ({ visible }) => {
 
   const [inputVsPoint, setInputVsPoint] = useState(true);
 
-  const addOrSub = useSelector((state) => state.addOrSub);
-
+  const [addOrSub, setAddOrSub] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,35 +38,26 @@ const DashboardScore = ({ visible }) => {
     setValorInput(e.target.value);
   };
 
-  const showValue = (nameHouse) => {
+  const showValue = (nameHouse, negativeNumber) => {
+    const value = negativeNumber ? `-${valorInput}` : valorInput;
+    setAddOrSub(negativeNumber);
     setInputVsPoint(!inputVsPoint);
     switch (nameHouse) {
       case "Gryffindor":
-        return dispatch(displayGryffindor(parseInt(valorInput)));
+        return dispatch(displayGryffindor(value));
 
       case "Hufflepuff":
-        return dispatch(displayHufflepuff(parseInt(valorInput)));
+        return dispatch(displayHufflepuff(parseInt(value)));
 
       case "Ravenclaw":
-        return dispatch(displayRavenclaw(parseInt(valorInput)));
+        return dispatch(displayRavenclaw(parseInt(value)));
 
       case "Slytherin":
-        return dispatch(displaySlytherin(parseInt(valorInput)));
+        return dispatch(displaySlytherin(parseInt(value)));
       default:
         break;
     }
   };
-
-  const addPonto = (nameHouse) => {
-    showValue(nameHouse);
-    dispatch(addNumberTrue());
-  };
-
-  const subPonto = (nameHouse) => {
-    showValue(nameHouse);
-    dispatch(subNumberFalse());
-  };
-
   const exitModel = () => {
     setInputVsPoint(!inputVsPoint);
     dispatch(visibleAction(true));
@@ -119,10 +105,10 @@ const DashboardScore = ({ visible }) => {
                 placeholder="pontos"
               />
               <DivButton>
-                <ButtonGain onClick={() => addPonto(state.house)}>
+                <ButtonGain onClick={() => showValue(state.house, false)}>
                   Gain
                 </ButtonGain>
-                <ButtonLose onClick={() => subPonto(state.house)}>
+                <ButtonLose onClick={() => showValue(state.house, true)}>
                   Lose
                 </ButtonLose>
               </DivButton>
@@ -131,11 +117,11 @@ const DashboardScore = ({ visible }) => {
             <>
               {addOrSub ? (
                 <>
-                  <h1 style={{ color: "#77edf0" }}>{`+ ${valorInput}`}</h1>
+                  <h1 style={{ color: "#f4a288" }}>{`- ${valorInput}`}</h1>
                 </>
               ) : (
                 <>
-                  <h1 style={{ color: "#f4a288" }}>{`- ${valorInput}`}</h1>
+                  <h1 style={{ color: "#77edf0" }}>{`+ ${valorInput}`}</h1>
                 </>
               )}
               <ButtonDone onClick={exitModel}>Done</ButtonDone>

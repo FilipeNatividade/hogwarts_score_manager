@@ -8,19 +8,55 @@ import {
   DivDisplay,
 } from "./style";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const CardsNote = () => {
   const displayGryffindor = useSelector((state) => state.displayGryffindor);
   const displayHufflepuff = useSelector((state) => state.displayHufflepuff);
   const displayRavenclaw = useSelector((state) => state.displayRavenclaw);
   const displaySlytherin = useSelector((state) => state.displayvalueSlytherin);
-
-  const addOrSub = useSelector((state) => state.addOrSub);
-
-  // console.log(displayGryffindor);
-  // console.log(displayHufflepuff);
-  // console.log(displayRavenclaw);
-  // console.log(displaySlytherin);
+  const scoreboard = [
+    {
+      score: displayGryffindor,
+      tag: (
+        <Cards>
+          <h2>#2 Gryffindor</h2>
+          <CardsImg src="./Images/Gryffindor.png" />
+          <DivDisplay>{displayGryffindor}</DivDisplay>
+        </Cards>
+      ),
+    },
+    {
+      score: displaySlytherin,
+      tag: (
+        <Cards>
+          <h2>#1 Slytherin</h2>
+          <CardsImg src="./Images/Slytherin.png" />
+          <DivDisplay>{displaySlytherin}</DivDisplay>
+        </Cards>
+      ),
+    },
+    {
+      score: displayHufflepuff,
+      tag: (
+        <Cards>
+          <h2>#3 Hufflepuff</h2>
+          <CardsImg src="./Images/Hufflepuff.png" />
+          <DivDisplay>{displayHufflepuff}</DivDisplay>
+        </Cards>
+      ),
+    },
+    {
+      score: displayRavenclaw,
+      tag: (
+        <Cards>
+          <h2>#4 Ravenclaw</h2>
+          <CardsImg src="./Images/Ravenclaw.png" />
+          <DivDisplay>{displayRavenclaw}</DivDisplay>
+        </Cards>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -31,50 +67,10 @@ const CardsNote = () => {
       </Header>
 
       <Container>
-        <Cards>
-          <h2>#2 Gryffindor</h2>
-          <CardsImg src="./Images/Gryffindor.png" />
-          <DivDisplay>
-            {displayGryffindor <= 0
-              ? displayGryffindor
-              : displayGryffindor.reduce((acc, crr) => {
-                  return addOrSub ? acc + crr : acc + -crr;
-                })}
-          </DivDisplay>
-        </Cards>
-        <Cards>
-          <h2>#1 Slytherin</h2>
-          <CardsImg src="./Images/Slytherin.png" />
-          <DivDisplay>
-            {displaySlytherin <= 0
-              ? displaySlytherin
-              : displaySlytherin.reduce((acc, crr) => {
-                  return addOrSub ? acc + crr : acc + -crr;
-                })}
-          </DivDisplay>
-        </Cards>
-        <Cards>
-          <h2>#3 Hufflepuff</h2>
-          <CardsImg src="./Images/Hufflepuff.png" />
-          <DivDisplay>
-            {displayHufflepuff <= 0
-              ? displayHufflepuff
-              : displayHufflepuff.reduce((acc, crr) => {
-                  return addOrSub ? acc + crr : acc + -crr;
-                })}
-          </DivDisplay>
-        </Cards>
-        <Cards>
-          <h2>#4 Ravenclaw</h2>
-          <CardsImg src="./Images/Ravenclaw.png" />
-          <DivDisplay>
-            {displayRavenclaw <= 0
-              ? displayRavenclaw
-              : displayRavenclaw.reduce((acc, crr) => {
-                  return addOrSub ? acc + crr : acc + -crr;
-                })}
-          </DivDisplay>
-        </Cards>
+        {scoreboard.map((crr, idx, arr) => {
+          const scoreboardMap = crr.tag;
+          return scoreboardMap;
+        })}
       </Container>
     </>
   );

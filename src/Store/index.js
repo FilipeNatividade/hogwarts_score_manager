@@ -7,7 +7,6 @@ import displayGryffindorReducer from "./module/displayGryffindor/reducer";
 import displaySlytherinReducer from "./module/displaySlytherin/reducer";
 import displayHufflepuffReducer from "./module/displayHufflepuff/reducer";
 import displayRavenclawReducer from "./module/displayRavenclaw/reducer";
-import addOrSubReducer from "./module/addOrSub/reducer";
 
 const reducers = combineReducers({
   students: studentsReducer,
@@ -17,7 +16,6 @@ const reducers = combineReducers({
   displayvalueSlytherin: displaySlytherinReducer,
   displayHufflepuff: displayHufflepuffReducer,
   displayRavenclaw: displayRavenclawReducer,
-  addOrSub: addOrSubReducer,
 });
 const store = createStore(reducers, applyMiddleware(thunk));
 

@@ -1,7 +1,8 @@
-const displayHufflepuffReducer = (state = [0], action) => {
+const displayHufflepuffReducer = (state = 0, action) => {
   switch (action.type) {
     case "DISPLAY_HUFFLEPUFF":
-      return (state = [...state, action.valueHufflepuff]);
+      const newValue = state + Number(action.valueHufflepuff);
+      return newValue;
     default:
       return state;
   }
