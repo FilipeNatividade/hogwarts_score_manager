@@ -20,7 +20,7 @@ const CardsNote = () => {
       score: displayGryffindor,
       tag: (
         <Cards>
-          <h2>#2 Gryffindor</h2>
+          <h2>#1 Gryffindor</h2>
           <CardsImg src="./Images/Gryffindor.png" />
           <DivDisplay>{displayGryffindor}</DivDisplay>
         </Cards>
@@ -30,7 +30,7 @@ const CardsNote = () => {
       score: displaySlytherin,
       tag: (
         <Cards>
-          <h2>#1 Slytherin</h2>
+          <h2>#2 Slytherin</h2>
           <CardsImg src="./Images/Slytherin.png" />
           <DivDisplay>{displaySlytherin}</DivDisplay>
         </Cards>
